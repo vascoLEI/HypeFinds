@@ -2,58 +2,49 @@ import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
-    <section className="overflow-hidden bg-cream">
-      <div className="page-shell grid min-h-[calc(100vh-4rem)] items-center gap-10 py-12 md:grid-cols-[1fr_0.9fr] md:py-16">
-        <div className="max-w-2xl">
-          <p className="section-kicker mb-4">TikTok-ready outfit inspo</p>
-          <h1 className="text-5xl font-black leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-            Best SHEIN Finds for Summer Fits
+    <section className="relative min-h-screen overflow-hidden bg-ink text-cream">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80"
+      >
+        <source
+          src="https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      <div className="absolute inset-0 bg-ink/45" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/70 to-transparent" />
+
+      <div className="page-shell relative grid min-h-screen place-items-center py-24 text-center">
+        <div>
+          <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-softgold">
+            Outfits and accessories
+          </p>
+          <h1 className="brand-title text-5xl leading-none text-cream drop-shadow-2xl sm:text-7xl lg:text-8xl">
+            HYPEFINDS
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-cocoa">
-            Outfits, accessories and essentials curated for your next look.
+          <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-cream/80 sm:text-lg">
+            Curated SHEIN finds, complete outfits and quick links for your next look.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link className="pill-button bg-ink text-cream hover:bg-gold hover:text-ink" to="/men">
-              Men
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              className="inline-flex items-center justify-center rounded-full bg-cream px-6 py-4 text-sm font-black text-ink transition hover:-translate-y-0.5 hover:bg-softgold"
+              to="/products"
+            >
+              Explore Products
             </Link>
-            <Link className="pill-button bg-gold text-ink hover:bg-softgold" to="/women">
-              Women
+            <Link
+              className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-4 text-sm font-black text-cream backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
+              to="/outfits"
+            >
+              View Outfits
             </Link>
-            <Link className="pill-button bg-white text-ink" to="/accessories">
-              Accessories
-            </Link>
-          </div>
-
-          <div className="mt-10 grid grid-cols-3 gap-3 text-center sm:max-w-md">
-            {[
-              ['50+', 'Curated ideas'],
-              ['3 taps', 'To shop'],
-              ['Mobile', 'First layout'],
-            ].map(([value, label]) => (
-              <div key={label} className="rounded-3xl border border-ink/10 bg-sand px-3 py-4">
-                <p className="text-xl font-black">{value}</p>
-                <p className="mt-1 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-cocoa/70">
-                  {label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute -left-6 top-8 h-24 w-24 rounded-full bg-softgold blur-2xl" />
-          <div className="absolute -right-8 bottom-10 h-32 w-32 rounded-full bg-gold/30 blur-3xl" />
-          <div className="relative grid gap-4">
-            <img
-              className="h-[28rem] w-full rounded-[2rem] object-cover shadow-soft sm:h-[34rem]"
-              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1100&q=80"
-              alt="Summer outfit inspiration with neutral fashion styling"
-            />
-            <div className="absolute bottom-5 left-5 right-5 rounded-3xl border border-white/50 bg-white/85 p-4 shadow-soft backdrop-blur">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-gold">Trending now</p>
-              <p className="mt-1 text-lg font-black">Neutral sets, gold details, beach bags.</p>
-            </div>
           </div>
         </div>
       </div>

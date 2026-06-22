@@ -49,4 +49,9 @@
   .pill-button {
     @apply inline-flex items-center justify-center rounded-full border border-ink/10 px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:border-gold hover:bg-white hover:shadow-soft focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-sand;
   }
+
+  .brand-title {
+    font-family: "Bodoni 72", Didot, "DM Serif Display", Georgia, serif;
+    letter-spacing: 0.08em;
+  }
 }
