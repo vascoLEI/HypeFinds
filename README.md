@@ -104,6 +104,8 @@ VITE_PRODUCTS_SHEET_URL
 VITE_OUTFITS_SHEET_URL
 ```
 
+After adding or changing these variables in Vercel, trigger a new deployment. Vite reads `VITE_*` variables at build time, so an existing deployment will keep using the old values until it is rebuilt.
+
 The implementation can also try to convert normal Google Sheets edit links into CSV export URLs. If a sheet is private, blocked by permissions, or not published correctly, the site silently uses fallback data or shows an empty store state.
 
 Important: because this is a frontend-only site, the browser can only load Google Sheet data that is reachable as CSV. A truly private Google Sheet requires authentication or a backend/proxy, which this project intentionally does not use.
