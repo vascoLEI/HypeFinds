@@ -80,7 +80,7 @@ function normalizeProductsFromRows(headers, dataRows) {
 export async function getProducts() {
   try {
     const { headers, dataRows } = await fetchCsvRows(GOOGLE_SHEET_CSV_URL);
-    const sheetProducts = normalizeProductsFromRows(headers, dataRows);
+    const sheetProducts = normalizeProductsFromRows(headers, dataRows).reverse();
 
     if (!sheetProducts.length) {
       throw new Error('No valid products found in the Google Sheet.');

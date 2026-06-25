@@ -69,7 +69,7 @@ function normalizeOutfitsFromRows(headers, dataRows) {
 export async function getOutfits() {
   try {
     const { headers, dataRows } = await fetchCsvRows(GOOGLE_OUTFITS_CSV_URL);
-    const sheetOutfits = normalizeOutfitsFromRows(headers, dataRows);
+    const sheetOutfits = normalizeOutfitsFromRows(headers, dataRows).reverse();
 
     if (!sheetOutfits.length) {
       throw new Error('No valid outfits found in the Google Sheet.');

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import FilterSidebar from '../components/FilterSidebar.jsx';
+import MobileFilterDrawer from '../components/MobileFilterDrawer.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { useSEO } from '../hooks/useSEO.js';
 import { getProducts } from '../services/productsService.js';
@@ -31,6 +32,7 @@ export default function Products() {
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState(defaultFilters);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   useSEO({
     title: 'Products | HypeFinds',
@@ -109,8 +111,8 @@ export default function Products() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
-        <div className="grid gap-4 lg:sticky lg:top-28">
+      <div className="grid gap-6 lg:h-[calc(100vh-8rem)] lg:grid-cols-[18rem_1fr] lg:items-start lg:overflow-hidden">
+        <div className="hidden gap-4 lg:grid lg:max-h-full lg:overflow-y-auto lg:pr-1">
           <div className="rounded-[1.5rem] border border-gold/40 bg-cream p-4 text-sm leading-6 text-cocoa shadow-sm">
             <p className="font-black text-ink">Price note</p>
             <p className="mt-1">
@@ -128,7 +130,7 @@ export default function Products() {
           />
         </div>
 
-        <div>
+        <div className="lg:max-h-full lg:overflow-y-auto lg:pr-2">
           <label className="mb-6 block">
             <span className="mb-2 block text-sm font-black text-cocoa">Search products</span>
             <input
@@ -139,6 +141,28 @@ export default function Products() {
               onChange={(event) => setSearchTerm(event.target.value)}
             />
           </label>
+
+          <MobileFilterDrawer
+            label="Product filters"
+            isOpen={isMobileFiltersOpen}
+            onOpen={() => setIsMobileFiltersOpen(true)}
+            onClose={() => setIsMobileFiltersOpen(false)}
+          >
+            <div className="rounded-[1.5rem] border border-gold/40 bg-cream p-4 text-sm leading-6 text-cocoa shadow-sm">
+              <p className="font-black text-ink">Price note</p>
+              <p className="mt-1">
+                Prices shown are base prices. They can be lower during promotions or higher
+                depending on the selected product options.
+              </p>
+            </div>
+            <FilterSidebar
+              title="Filters"
+              groups={filterGroups}
+              selectedFilters={filters}
+              onChange={updateFilter}
+              onClear={() => setFilters(defaultFilters)}
+            />
+          </MobileFilterDrawer>
 
           {isLoading ? (
             <div className="rounded-[1.75rem] border border-ink/10 bg-cream p-8 text-center">

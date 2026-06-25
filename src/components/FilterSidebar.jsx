@@ -1,6 +1,18 @@
-export default function FilterSidebar({ title, groups, selectedFilters, onChange, onClear }) {
+export default function FilterSidebar({
+  title,
+  groups,
+  selectedFilters,
+  onChange,
+  onClear,
+  className = '',
+}) {
   return (
-    <aside className="rounded-[1.5rem] border border-ink/10 bg-cream p-4 shadow-sm lg:sticky lg:top-28">
+    <aside
+      className={[
+        'rounded-[1.5rem] border border-ink/10 bg-cream p-4 shadow-sm',
+        className,
+      ].join(' ')}
+    >
       <div className="mb-5 flex items-center justify-between gap-4">
         <h2 className="text-lg font-black">{title}</h2>
         <button

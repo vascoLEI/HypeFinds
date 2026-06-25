@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import FilterSidebar from '../components/FilterSidebar.jsx';
+import MobileFilterDrawer from '../components/MobileFilterDrawer.jsx';
 import OutfitCard from '../components/OutfitCard.jsx';
 import { useSEO } from '../hooks/useSEO.js';
 import { getOutfits } from '../services/outfitsService.js';
@@ -19,6 +20,7 @@ export default function Outfits() {
   const [outfits, setOutfits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState(defaultFilters);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   useSEO({
     title: 'Outfits | HypeFinds',
@@ -90,36 +92,54 @@ export default function Outfits() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
+      <div className="grid gap-6 lg:h-[calc(100vh-8rem)] lg:grid-cols-[18rem_1fr] lg:items-start lg:overflow-hidden">
         <FilterSidebar
           title="Outfit filters"
           groups={filterGroups}
           selectedFilters={filters}
           onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))}
           onClear={() => setFilters(defaultFilters)}
+          className="hidden lg:block lg:max-h-full lg:overflow-y-auto"
         />
 
-        {isLoading ? (
-          <div className="rounded-[1.75rem] border border-ink/10 bg-cream p-8 text-center">
-            <p className="text-xl font-black">Loading outfits...</p>
-            <p className="mt-2 text-cocoa">Finding the latest looks.</p>
-          </div>
-        ) : null}
+        <div className="lg:max-h-full lg:overflow-y-auto lg:pr-2">
+          <MobileFilterDrawer
+            label="Outfit filters"
+            isOpen={isMobileFiltersOpen}
+            onOpen={() => setIsMobileFiltersOpen(true)}
+            onClose={() => setIsMobileFiltersOpen(false)}
+          >
+            <FilterSidebar
+              title="Outfit filters"
+              groups={filterGroups}
+              selectedFilters={filters}
+              onChange={(key, value) => setFilters((current) => ({ ...current, [key]: value }))}
+              onClear={() => setFilters(defaultFilters)}
+            />
+          </MobileFilterDrawer>
 
-        {!isLoading && filteredOutfits.length > 0 ? (
-          <div className="grid gap-5 md:grid-cols-2">
-            {filteredOutfits.map((outfit) => (
-              <OutfitCard key={outfit.id} outfit={outfit} />
-            ))}
-          </div>
-        ) : null}
+          {isLoading ? (
+            <div className="rounded-[1.75rem] border border-ink/10 bg-cream p-8 text-center">
+              <p className="text-xl font-black">Loading outfits...</p>
+              <p className="mt-2 text-cocoa">Finding the latest looks.</p>
+            </div>
+          ) : null}
 
-        {!isLoading && filteredOutfits.length === 0 ? (
-          <div className="rounded-[1.75rem] border border-ink/10 bg-cream p-8 text-center">
-            <p className="text-xl font-black">No outfits available yet.</p>
-            <p className="mt-2 text-cocoa">New looks will appear here soon.</p>
-          </div>
-        ) : null}
+          {!isLoading && filteredOutfits.length > 0 ? (
+            <div className="grid gap-5 md:grid-cols-2">
+              {filteredOutfits.map((outfit) => (
+                <OutfitCard key={outfit.id} outfit={outfit} />
+              ))}
+            </div>
+          ) : null}
+
+          {!isLoading && filteredOutfits.length === 0 ? (
+            <div className="rounded-[1.75rem] border border-ink/10 bg-cream p-8 text-center">
+              <p className="text-xl font-black">No outfits available yet.</p>
+              <p className="mt-2 text-cocoa">New looks will appear here soon.</p>
+            </div>
+          ) : null}
+        </div>
       </div>
     </section>
   );
